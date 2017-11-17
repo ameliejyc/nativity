@@ -20,8 +20,6 @@ import { View, Image, Button, Text } from 'react-native';
 //   }
 // }
 
-//// imported from mainscreennavigator
-
 class HomeScreen extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Home'
@@ -35,7 +33,7 @@ class HomeScreen extends React.Component {
   };
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>
           Welcome. Jesus is nearly born. But how well do you know his face?
         </Text>
@@ -60,7 +58,7 @@ class InstructionsScreen extends React.Component {
   };
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Here are some instructions on how to play my Jesus game</Text>
         <Button
           onPress={() => this.props.navigation.goBack()}
@@ -71,40 +69,29 @@ class InstructionsScreen extends React.Component {
   }
 }
 
-const MainScreenNavigator = TabNavigator({
-  Home: { screen: HomeScreen },
-  Instructions: { screen: InstructionsScreen }
-});
-
-//// end of this
+const MainScreenNavigator = TabNavigator(
+  {
+    Home: { screen: HomeScreen },
+    Instructions: { screen: InstructionsScreen }
+  },
+  {
+    tabBarPosition: 'top',
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: '#e91e63'
+    }
+  }
+);
 
 const MyApp = StackNavigator({
   Home: {
     screen: MainScreenNavigator,
     navigationOptions: {
-      title: 'Home'
+      title: 'Nativity Play'
     }
   }
   // Instructions: { screen: InstructionsScreen }
 });
-
-// const MyApp = TabNavigator(
-//   {
-//     Home: {
-//       screen: HomeScreen
-//     },
-//     Instructions: {
-//       screen: InstructionsScreen
-//     }
-//   },
-//   {
-//     tabBarPosition: 'top',
-//     animationEnabled: true,
-//     tabBarOptions: {
-//       activeTintColor: '#e91e63'
-//     }
-//   }
-// );
 
 export default class App extends React.Component {
   render() {
@@ -112,11 +99,47 @@ export default class App extends React.Component {
   }
 }
 
+const styles = {
+  container: {
+    flex: 1,
+    backgroundColor: 'palevioletred',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+};
+
+//// Styles could have for the home page
+
+// export default class Home extends React.Component {
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <View style={styles.halfHeight} />
+//         <View style={styles.quarterHeight} />
+//         <View style={[styles.quarterHeight, { backgroundColor: '#CCC' }]} />
+//       </View>
+//     );
+//   }
+// }
+
 // const styles = {
+//   icon: {
+//     width: 26,
+//     height: 26
+//   }
+// };
+
+// var styles = {
 //   container: {
 //     flex: 1,
-//     // backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center'
+//     flexDirection: 'column'
+//   },
+//   halfHeight: {
+//     flex: 2,
+//     backgroundColor: '#FF3366'
+//   },
+//   quarterHeight: {
+//     flex: 1,
+//     backgroundColor: '#000'
 //   }
 // };
