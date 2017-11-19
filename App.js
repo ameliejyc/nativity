@@ -22,19 +22,18 @@ import { View, Image, Button, Text } from 'react-native';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'Home'
-    // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-    // tabBarIcon: ({ tintColor }) => (
-    //   <Image
-    //     source={require('./chats-icon.png')}
-    //     style={[styles.icon, { tintColor: tintColor }]}
-    //   />
-    // )
+    tabBarLabel: 'Home',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./assets/home.svg')}
+        style={[styles.icon, { tintColor: tintColor }]}
+      />
+    )
   };
   render() {
     return (
       <View style={styles.container}>
-        <Text>
+        <Text style={styles.homeText}>
           Welcome. Jesus is nearly born. But how well do you know his face?
         </Text>
         <Button
@@ -48,22 +47,36 @@ class HomeScreen extends React.Component {
 
 class InstructionsScreen extends React.Component {
   static navigationOptions = {
-    tabBarLabel: 'How to Play'
-    // tabBarIcon: ({ tintColor }) => (
-    //   <Image
-    //     source={require('./notif-icon.png')}
-    //     style={[styles.icon, { tintColor: tintColor }]}
-    //   />
-    // )
+    tabBarLabel: 'How to Play',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./assets/instructions.svg')}
+        style={[styles.icon, { tintColor: tintColor }]}
+      />
+    )
   };
   render() {
     return (
       <View style={styles.container}>
-        <Text>Here are some instructions on how to play my Jesus game</Text>
+        <Text style={styles.instructionsText}>1. Look at the picture</Text>
+        <Text style={styles.instructionsText}>2. Is it Jesus?</Text>
+        <Text style={styles.instructionsText}>3. U decide</Text>
         <Button
           onPress={() => this.props.navigation.goBack()}
           title="Go back home"
         />
+      </View>
+    );
+  }
+}
+
+class GameScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.instructionsText}>
+          Here is where the fun begins
+        </Text>
       </View>
     );
   }
@@ -75,10 +88,18 @@ const MainScreenNavigator = TabNavigator(
     Instructions: { screen: InstructionsScreen }
   },
   {
-    tabBarPosition: 'top',
+    tabBarPosition: 'bottom',
     animationEnabled: true,
+    swipeEnabled: true,
+    showIcon: true,
     tabBarOptions: {
-      activeTintColor: '#e91e63'
+      activeTintColor: '#e91e63',
+      labelStyle: {
+        fontSize: 24
+      },
+      style: {
+        backgroundColor: 'pink'
+      }
     }
   }
 );
@@ -87,10 +108,16 @@ const MyApp = StackNavigator({
   Home: {
     screen: MainScreenNavigator,
     navigationOptions: {
-      title: 'Nativity Play'
+      title: 'Nativity Play',
+      headerTitleStyle: { alignSelf: 'center' }
+    }
+  },
+  Game: {
+    screen: GameScreen,
+    navigationOptions: {
+      title: 'Game Play'
     }
   }
-  // Instructions: { screen: InstructionsScreen }
 });
 
 export default class App extends React.Component {
@@ -104,11 +131,25 @@ const styles = {
     flex: 1,
     backgroundColor: 'palevioletred',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 6
+  },
+  instructionsText: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: 'white',
+    padding: 4
+  },
+  homeText: {
+    textAlign: 'center',
+    fontSize: 42,
+    color: 'purple'
+  },
+  icon: {
+    width: 26,
+    height: 26
   }
 };
-
-//// Styles could have for the home page
 
 // export default class Home extends React.Component {
 //   render() {
@@ -121,13 +162,6 @@ const styles = {
 //     );
 //   }
 // }
-
-// const styles = {
-//   icon: {
-//     width: 26,
-//     height: 26
-//   }
-// };
 
 // var styles = {
 //   container: {
